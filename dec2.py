@@ -16,10 +16,10 @@ class Sailors(Base):
 
 class Reserves(Base):
     __tablename__ = 'reserves'
-    sid = Column(Integer, primary_key=True)
-    bid = Column(Integer, primary_key=True)
+    sid = Column(Integer, ForeignKey("sailors.sid"), primary_key=True)
+    bid = Column(Integer, ForeignKey("boats.bid"), primary_key=True)
     day = Column(String(10), primary_key=True)
-    eid = Column(Integer, nullable=False)
+    eid = Column(Integer, ForeignKey("employee.eid"), nullable=False)
     rating = Column(Integer, nullable=True)
     condition = Column(String(30), nullable=True)
 
@@ -43,10 +43,10 @@ class Employee(Base):
 
 class Sells(Base):
     __tablename__ = 'sells'
-    sid = Column(Integer, primary_key=True)
-    iid = Column(Integer, primary_key=True)
+    sid = Column(Integer, ForeignKey("sailors.sid"), primary_key=True)
+    iid = Column(Integer, ForeignKey("boats.bid"), primary_key=True)
     day = Column(String(10), primary_key=True)
-    eid = Column(Integer, nullable=False)
+    eid = Column(Integer, ForeignKey("employee.eid"), nullable=False)
     quantity = Column(Integer, nullable=False)
 
 class Inventory(Base):
@@ -58,8 +58,8 @@ class Inventory(Base):
 
 class Maintenance(Base):
     __tablename__ = 'maintenance'
-    bid = Column(Integer, primary_key=True)
-    eid = Column(Integer, primary_key=True)
+    bid = Column(Integer, ForeignKey("boats.bid"), primary_key=True)
+    eid = Column(Integer, ForeignKey("employee.eid"), primary_key=True)
     day = Column(String(10), primary_key=True)
     cost = Column(Integer, nullable=False)
 
